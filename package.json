@@ -1,0 +1,15 @@
+{
+  "name": "@gm-rider/monorepo",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm -r run dev --filter @gmr/engine"
+  },
+  "dependencies": {
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.2"
+  }
+}

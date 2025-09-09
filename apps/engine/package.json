@@ -1,0 +1,25 @@
+{
+  "name": "@gmr/engine",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@kobalte/core": "^0.13.11",
+    "@solidjs/router": "^0.15.3",
+    "solid-js": "^1.9.5",
+    "@gmr/components": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.2",
+    "@tailwindcss/vite": "^4.0.14",
+    "@types/systemjs": "^6.15.1",
+    "tailwindcss": "~4.1.13",
+    "typescript": "^5.8.2",
+    "vite": "^7.1.5",
+    "vite-plugin-solid": "^2.11.6",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
