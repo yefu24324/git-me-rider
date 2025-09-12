@@ -19,13 +19,13 @@
     "cva": "1.0.0-beta.4",
     "embla-carousel-solid": "^8.6.0",
     "lucide-solid": "^0.543.0",
-    "solid-js": "1.9.7",
+    "solid-js": "^1.9.9",
     "solid-motion": "1.0.0-alpha.2",
     "somoto": "^0.0.2",
     "tailwind-merge": "^3.3.1"
   },
   "peerDependencies": {
-    "solid-js": "1.9.7"
+    "solid-js": "^1.9.9"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",

@@ -1,0 +1,14 @@
+{
+  "name": "@gmr/repl",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --experimental-strip-types src/index.ts"
+  },
+  "dependencies": {
+    "@babel/standalone": "^7.28.4",
+    "babel-preset-solid": "^1.9.9",
+    "solid-repl": "^0.26.0"
+  }
+}

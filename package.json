@@ -2,10 +2,10 @@
   "name": "@gm-rider/monorepo",
   "type": "module",
   "scripts": {
-    "dev": "pnpm -r run dev --filter @gmr/engine"
+    "dev": "pnpm -r run dev --filter @gmr/engine",
+    "format": "biome check --write"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=22"
   },

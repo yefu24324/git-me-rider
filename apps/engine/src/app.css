@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @source "../node_modules/@gmr/components";
-@source "./components";
 
 @font-face {
   font-family: "Geist Sans Variable";
