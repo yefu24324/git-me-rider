@@ -43,7 +43,7 @@ export function Workbench() {
             </div>
           </header>
           <Tabs class="flex flex-1 overflow-hidden">
-            <TabsContent value="account">
+            <TabsContent class="flex flex-1 flex-col gap-4 p-4 overflow-auto" value="account">
               <MarkdownDesigner />
             </TabsContent>
             <TabsContent class="flex flex-1 flex-col gap-4 p-4 overflow-auto" value="password">

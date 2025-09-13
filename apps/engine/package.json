@@ -14,11 +14,14 @@
     "@solidjs/router": "^0.15.3",
     "@thisbeyond/solid-dnd": "^0.7.5",
     "lucide-solid": "^0.543.0",
+    "mdast-util-from-markdown": "^2.0.2",
+    "mdast-util-to-markdown": "^2.1.2",
     "solid-js": "^1.9.9"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "@tailwindcss/vite": "^4.0.14",
+    "@types/mdast": "^4.0.4",
     "@types/systemjs": "^6.15.1",
     "tailwindcss": "~4.1.13",
     "typescript": "^5.8.2",
