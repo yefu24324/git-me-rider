@@ -4,6 +4,8 @@ import { toMarkdown } from "mdast-util-to-markdown";
 import { For } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
+import css from "../../assets/github-markdown.min.css?inline";
+import { ShadowRoot } from "../shadow-root/shadow-root";
 import { useWorkbenchContext } from "../workbench/workbench-context";
 
 export interface RiderMap {
@@ -57,15 +59,18 @@ export function MarkdownDesigner() {
   // console.log(ast);
   // const a = ast.children[0] as Parent;
   return (
-    <div class="markdown-body">
-      <For each={riders}>
-        {(item) => {
-          if (item.type === "header") {
-            return <MarkdownControlHeaderRender rider={item} />;
-          }
-        }}
-      </For>
-    </div>
+    <ShadowRoot>
+      <style>{css}</style>
+      <div class="markdown-body">
+        <For each={riders}>
+          {(item) => {
+            if (item.type === "header") {
+              return <MarkdownControlHeaderRender rider={item} />;
+            }
+          }}
+        </For>
+      </div>
+    </ShadowRoot>
   );
 }
 

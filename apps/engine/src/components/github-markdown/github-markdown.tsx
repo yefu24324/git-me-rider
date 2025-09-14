@@ -1,3 +1,6 @@
+import css from "../../assets/github-markdown.min.css?inline";
+import { ShadowRoot } from "../shadow-root/shadow-root";
+
 export function GithubMarkdown() {
   const markdown = `
 <div class="markdown-heading">
@@ -136,5 +139,10 @@ export function GithubMarkdown() {
     href="https://camo.githubusercontent.com/f596400e9fcd920dc4412362b4ca75a7bf794e58646039b2c3e4a0646b968736/68747470733a2f2f73747265616b2d73746174732e64656d6f6c61622e636f6d3f757365723d796566753234333234266c6f63616c653d656e266d6f64653d6461696c79267468656d653d6461726b26686964655f626f726465723d66616c736526626f726465725f7261646975733d35266f726465723d33"><img src="https://camo.githubusercontent.com/f596400e9fcd920dc4412362b4ca75a7bf794e58646039b2c3e4a0646b968736/68747470733a2f2f73747265616b2d73746174732e64656d6f6c61622e636f6d3f757365723d796566753234333234266c6f63616c653d656e266d6f64653d6461696c79267468656d653d6461726b26686964655f626f726465723d66616c736526626f726465725f7261646975733d35266f726465723d33" height="220" alt="streak graph" data-canonical-src="https://streak-stats.demolab.com?user=yefu24324&amp;locale=en&amp;mode=daily&amp;theme=dark&amp;hide_border=false&amp;border_radius=5&amp;order=3" style="max-width: 100%; height: auto; max-height: 220px;"></a>
 </div>
 <h3></h3>`;
-  return <div class="markdown-body" innerHTML={markdown}></div>;
+  return (
+    <ShadowRoot>
+      <style>{css}</style>
+      <div class="markdown-body" innerHTML={markdown}></div>
+    </ShadowRoot>
+  );
 }
