@@ -7,15 +7,22 @@
     "dev": "vite"
   },
   "dependencies": {
+    "@babel/standalone": "^7.28.4",
     "@gmr/components": "workspace:*",
     "@gmr/core": "workspace:*",
     "@kobalte/core": "^0.13.11",
     "@solid-primitives/refs": "^1.1.2",
+    "@solid-primitives/scheduled": "^1.5.2",
     "@solidjs/router": "^0.15.3",
     "@thisbeyond/solid-dnd": "^0.7.5",
+    "babel-preset-solid": "^1.9.9",
     "lucide-solid": "^0.543.0",
     "mdast-util-from-markdown": "^2.0.2",
     "mdast-util-to-markdown": "^2.1.2",
+    "monaco-editor": "^0.53.0",
+    "monaco-editor-textmate": "^4.0.0",
+    "monaco-textmate": "^3.0.1",
+    "onigasm": "^2.2.5",
     "solid-js": "^1.9.9"
   },
   "devDependencies": {
@@ -26,6 +33,7 @@
     "tailwindcss": "~4.1.13",
     "typescript": "^5.8.2",
     "vite": "^7.1.5",
+    "vite-plugin-node-polyfills": "^0.24.0",
     "vite-plugin-solid": "^2.11.6",
     "vite-tsconfig-paths": "^5.1.4"
   }

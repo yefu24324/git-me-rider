@@ -1,6 +1,6 @@
 import css from "../../assets/github-markdown.min.css?inline";
+import tailwindcss from "../markdown-designer/ext.css?inline";
 import { ShadowRoot } from "../shadow-root/shadow-root";
-
 export function GithubMarkdown() {
   const markdown = `
 <div class="markdown-heading">
@@ -142,6 +142,7 @@ export function GithubMarkdown() {
   return (
     <ShadowRoot>
       <style>{css}</style>
+      <style>{tailwindcss}</style>
       <div class="markdown-body" innerHTML={markdown}></div>
     </ShadowRoot>
   );

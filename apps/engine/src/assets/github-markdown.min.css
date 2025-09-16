@@ -1,7 +1,6 @@
 @media (prefers-color-scheme: dark) {
   .markdown-body,
   [data-theme="dark"] {
-    color-scheme: dark;
     --color-prettylights-syntax-comment: #8b949e;
     --color-prettylights-syntax-constant: #79c0ff;
     --color-prettylights-syntax-entity: #d2a8ff;
@@ -51,12 +50,12 @@
     --color-danger-emphasis: #da3633;
     --color-done-fg: #a371f7;
     --color-done-emphasis: #8957e5;
+    color-scheme: dark;
   }
 }
 @media (prefers-color-scheme: light) {
   .markdown-body,
   [data-theme="light"] {
-    color-scheme: light;
     --color-prettylights-syntax-comment: #57606a;
     --color-prettylights-syntax-constant: #0550ae;
     --color-prettylights-syntax-entity: #6639ba;
@@ -106,6 +105,7 @@
     --color-danger-emphasis: #cf222e;
     --color-done-fg: #8250df;
     --color-done-emphasis: #8250df;
+    color-scheme: light;
   }
 }
 .markdown-body {
@@ -121,8 +121,8 @@
 }
 .markdown-body .octicon {
   display: inline-block;
-  fill: currentColor;
   vertical-align: text-bottom;
+  fill: currentColor;
 }
 .markdown-body h1:hover .anchor .octicon-link:before,
 .markdown-body h2:hover .anchor .octicon-link:before,
@@ -130,10 +130,10 @@
 .markdown-body h4:hover .anchor .octicon-link:before,
 .markdown-body h5:hover .anchor .octicon-link:before,
 .markdown-body h6:hover .anchor .octicon-link:before {
+  display: inline-block;
   width: 16px;
   height: 16px;
   content: " ";
-  display: inline-block;
   background-color: currentColor;
   -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
   mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
@@ -150,14 +150,14 @@
   display: none !important;
 }
 .markdown-body a {
-  background-color: transparent;
   color: var(--color-accent-fg);
   text-decoration: none;
+  background-color: transparent;
 }
 .markdown-body abbr[title] {
-  border-bottom: none;
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
+  border-bottom: none;
 }
 .markdown-body b,
 .markdown-body strong {
@@ -167,24 +167,24 @@
   font-style: italic;
 }
 .markdown-body h1 {
-  margin: 0.67em 0;
-  font-weight: var(--base-text-weight-semibold, 600);
   padding-bottom: 0.3em;
+  margin: 0.67em 0;
   font-size: 2em;
+  font-weight: var(--base-text-weight-semibold, 600);
   border-bottom: 1px solid var(--color-border-muted);
 }
 .markdown-body mark {
-  background-color: var(--color-attention-subtle);
   color: var(--color-fg-default);
+  background-color: var(--color-attention-subtle);
 }
 .markdown-body small {
   font-size: 90%;
 }
 .markdown-body sub,
 .markdown-body sup {
+  position: relative;
   font-size: 75%;
   line-height: 0;
-  position: relative;
   vertical-align: baseline;
 }
 .markdown-body sub {
@@ -194,10 +194,10 @@
   top: -0.5em;
 }
 .markdown-body img {
-  border-style: none;
-  max-width: 100%;
   box-sizing: content-box;
+  max-width: 100%;
   background-color: var(--color-canvas-default);
+  border-style: none;
 }
 .markdown-body code,
 .markdown-body kbd,
@@ -211,19 +211,19 @@
 }
 .markdown-body hr {
   box-sizing: content-box;
-  overflow: hidden;
-  background: 0 0;
-  border-bottom: 1px solid var(--color-border-muted);
   height: 0.25em;
   padding: 0;
   margin: 24px 0;
+  overflow: hidden;
+  background: 0 0;
   background-color: var(--color-border-default);
   border: 0;
+  border-bottom: 1px solid var(--color-border-muted);
 }
 .markdown-body input {
-  font: inherit;
   margin: 0;
   overflow: visible;
+  font: inherit;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -253,9 +253,9 @@
   opacity: 0.54;
 }
 .markdown-body ::-webkit-file-upload-button {
+  font: inherit;
   -webkit-appearance: button;
   appearance: button;
-  font: inherit;
 }
 .markdown-body a:hover {
   text-decoration: underline;
@@ -269,17 +269,17 @@
   content: "";
 }
 .markdown-body hr::after {
-  display: table;
   clear: both;
+  display: table;
   content: "";
 }
 .markdown-body table {
-  border-spacing: 0;
-  border-collapse: collapse;
   display: block;
   width: max-content;
   max-width: 100%;
   overflow: auto;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 .markdown-body td,
 .markdown-body th {
@@ -333,8 +333,8 @@
     Liberation Mono,
     monospace;
   line-height: 10px;
-  color: var(--color-fg-default);
   vertical-align: middle;
+  color: var(--color-fg-default);
   background-color: var(--color-canvas-subtle);
   border: solid 1px var(--color-neutral-muted);
   border-bottom-color: var(--color-neutral-muted);
@@ -353,26 +353,26 @@
   line-height: 1.25;
 }
 .markdown-body h2 {
-  font-weight: var(--base-text-weight-semibold, 600);
   padding-bottom: 0.3em;
   font-size: 1.5em;
+  font-weight: var(--base-text-weight-semibold, 600);
   border-bottom: 1px solid var(--color-border-muted);
 }
 .markdown-body h3 {
-  font-weight: var(--base-text-weight-semibold, 600);
   font-size: 1.25em;
+  font-weight: var(--base-text-weight-semibold, 600);
 }
 .markdown-body h4 {
-  font-weight: var(--base-text-weight-semibold, 600);
   font-size: 1em;
+  font-weight: var(--base-text-weight-semibold, 600);
 }
 .markdown-body h5 {
-  font-weight: var(--base-text-weight-semibold, 600);
   font-size: 0.875em;
+  font-weight: var(--base-text-weight-semibold, 600);
 }
 .markdown-body h6 {
-  font-weight: var(--base-text-weight-semibold, 600);
   font-size: 0.85em;
+  font-weight: var(--base-text-weight-semibold, 600);
   color: var(--color-fg-muted);
 }
 .markdown-body p {
@@ -380,16 +380,16 @@
   margin-bottom: 10px;
 }
 .markdown-body blockquote {
-  margin: 0;
   padding: 0 1em;
+  margin: 0;
   color: var(--color-fg-muted);
   border-left: 0.25em solid var(--color-border-default);
 }
 .markdown-body ol,
 .markdown-body ul {
+  padding-left: 2em;
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 2em;
 }
 .markdown-body ol ol,
 .markdown-body ul ol {
@@ -451,8 +451,8 @@
   content: "";
 }
 .markdown-body::after {
-  display: table;
   clear: both;
+  display: table;
   content: "";
 }
 .markdown-body > :first-child {
@@ -500,9 +500,9 @@
 .markdown-body h4 .octicon-link,
 .markdown-body h5 .octicon-link,
 .markdown-body h6 .octicon-link {
-  color: var(--color-fg-default);
-  vertical-align: middle;
   visibility: hidden;
+  vertical-align: middle;
+  color: var(--color-fg-default);
 }
 .markdown-body h1:hover .anchor,
 .markdown-body h2:hover .anchor,
@@ -643,8 +643,8 @@
   overflow: hidden;
 }
 .markdown-body span.frame > span {
-  display: block;
   float: left;
+  display: block;
   width: auto;
   padding: 7px;
   margin: 13px 0 0;
@@ -652,19 +652,19 @@
   border: 1px solid var(--color-border-default);
 }
 .markdown-body span.frame span img {
-  display: block;
   float: left;
+  display: block;
 }
 .markdown-body span.frame span span {
+  clear: both;
   display: block;
   padding: 5px 0 0;
-  clear: both;
   color: var(--color-fg-default);
 }
 .markdown-body span.align-center {
+  clear: both;
   display: block;
   overflow: hidden;
-  clear: both;
 }
 .markdown-body span.align-center > span {
   display: block;
@@ -677,9 +677,9 @@
   text-align: center;
 }
 .markdown-body span.align-right {
+  clear: both;
   display: block;
   overflow: hidden;
-  clear: both;
 }
 .markdown-body span.align-right > span {
   display: block;
@@ -692,8 +692,8 @@
   text-align: right;
 }
 .markdown-body span.float-left {
-  display: block;
   float: left;
+  display: block;
   margin-right: 13px;
   overflow: hidden;
 }
@@ -701,8 +701,8 @@
   margin: 13px 0 0;
 }
 .markdown-body span.float-right {
-  display: block;
   float: right;
+  display: block;
   margin-left: 13px;
   overflow: hidden;
 }
@@ -926,8 +926,8 @@
   color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
 }
 .markdown-body .pl-corl {
-  text-decoration: underline;
   color: var(--color-prettylights-syntax-constant-other-reference-link);
+  text-decoration: underline;
 }
 .markdown-body g-emoji {
   display: inline-block;
@@ -993,8 +993,8 @@
 }
 .markdown-body .markdown-alert .markdown-alert-title {
   display: flex;
-  font-weight: var(--base-text-weight-medium, 500);
   align-items: center;
+  font-weight: var(--base-text-weight-medium, 500);
   line-height: 1;
 }
 .markdown-body .markdown-alert.markdown-alert-note {

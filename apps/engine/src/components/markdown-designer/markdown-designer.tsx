@@ -1,15 +1,18 @@
-import type { Heading, Root, RootContent, Text } from "mdast";
+import type { Heading, Image, Paragraph, Root, RootContent, Text } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { toMarkdown } from "mdast-util-to-markdown";
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
 import css from "../../assets/github-markdown.min.css?inline";
 import { ShadowRoot } from "../shadow-root/shadow-root";
 import { useWorkbenchContext } from "../workbench/workbench-context";
+import tailwindcss from "./ext.css?inline";
 
 export interface RiderMap {
   header: HeaderRiderNode;
+  paragraph: ParagraphRiderNode;
+  image: ImageRiderNode;
   text: TextRiderNode;
 }
 
@@ -19,6 +22,17 @@ export interface HeaderRiderNode {
   type: "header";
   node: Heading;
   children: RiderNode[];
+}
+
+export interface ParagraphRiderNode {
+  type: "paragraph";
+  node: Paragraph;
+  children: RiderNode[];
+}
+
+export interface ImageRiderNode {
+  type: "image";
+  node: Image;
 }
 
 export interface TextRiderNode {
@@ -40,6 +54,19 @@ export function toRiderNode(node: RootContent): RiderNode | undefined {
       type: "header",
     } as HeaderRiderNode;
   }
+  if (node.type === "paragraph") {
+    return {
+      children: node.children.map((node) => toRiderNode(node)).filter((child) => !!child),
+      node: node,
+      type: "paragraph",
+    } as ParagraphRiderNode;
+  }
+  if (node.type === "image") {
+    return {
+      node: node,
+      type: "image",
+    } as ImageRiderNode;
+  }
   if (node.type === "text") {
     return {
       node: node,
@@ -54,19 +81,15 @@ export function MarkdownDesigner() {
   console.log(tree);
   const riders = toRider(tree);
   console.log("riders", riders);
-  // const ast = parseMarkdown(context.content);
-  // console.log(context.content);
-  // console.log(ast);
-  // const a = ast.children[0] as Parent;
+
   return (
     <ShadowRoot>
       <style>{css}</style>
+      <style>{tailwindcss}</style>
       <div class="markdown-body">
         <For each={riders}>
           {(item) => {
-            if (item.type === "header") {
-              return <MarkdownControlHeaderRender rider={item} />;
-            }
+            return <RiderRender rider={item} />;
           }}
         </For>
       </div>
@@ -78,20 +101,31 @@ export function RiderRender(props: { rider: RiderNode }) {
   if (props.rider.type === "header") {
     return <MarkdownControlHeaderRender rider={props.rider} />;
   }
+  if (props.rider.type === "paragraph") {
+    return <MarkdownControlParagraphRender rider={props.rider} />;
+  }
+  if (props.rider.type === "image") {
+    return <MarkdownControlImageRender rider={props.rider} />;
+  }
   if (props.rider.type === "text") {
     return <MarkdownControlTextRender rider={props.rider} />;
   }
+  return <div>Unknown rider type: {props.rider.type}</div>;
 }
 
 export function MarkdownControlTextRender(props: { rider: TextRiderNode }) {
   const text = toMarkdown(props.rider.node);
-  return <div class="markdown-text">{text}</div>;
+  return (
+    <Show when={text.trim()}>
+      <div class="markdown-text">{text}</div>
+    </Show>
+  );
 }
 
 export function MarkdownControlHeaderRender(props: { rider: HeaderRiderNode }) {
   const text = toMarkdown(props.rider.node);
   return (
-    <div class="markdown-heading">
+    <div class="markdown-heading hover:border-blue-700 border border-transparent">
       <Dynamic class="heading-element" component={"h" + props.rider.node.depth}>
         <For each={props.rider.children}>
           {(item) => {
@@ -103,5 +137,26 @@ export function MarkdownControlHeaderRender(props: { rider: HeaderRiderNode }) {
         <span aria-hidden="true" class="octicon octicon-link"></span>
       </a>
     </div>
+  );
+}
+
+export function MarkdownControlParagraphRender(props: { rider: ParagraphRiderNode }) {
+  return (
+    <p>
+      <For each={props.rider.children}>
+        {(item) => {
+          return <RiderRender rider={item} />;
+        }}
+      </For>
+    </p>
+  );
+}
+
+export function MarkdownControlImageRender(props: { rider: ImageRiderNode }) {
+  console.log(props.rider.node);
+  return (
+    <a href={props.rider.node.url}>
+      <img src={props.rider.node.url} style="max-width: 100%;" />
+    </a>
   );
 }

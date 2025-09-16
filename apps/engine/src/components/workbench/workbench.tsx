@@ -17,6 +17,7 @@ import {
 import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from "@gmr/components/ui/tabs";
 import { CirclePlusIcon } from "lucide-solid";
 
+import { Developer } from "../developer/developer";
 import { GithubMarkdown } from "../github-markdown/github-markdown";
 import { MarkdownDesigner } from "../markdown-designer/markdown-designer";
 import { WorkbenchProvider } from "./workbench-context";
@@ -43,16 +44,20 @@ export function Workbench() {
             </div>
           </header>
           <Tabs class="flex flex-1 overflow-hidden">
-            <TabsContent class="flex flex-1 flex-col gap-4 p-4 overflow-auto" value="account">
+            <TabsContent class="flex flex-1 flex-col gap-4 p-4 overflow-auto" value="designer">
               <MarkdownDesigner />
             </TabsContent>
-            <TabsContent class="flex flex-1 flex-col gap-4 p-4 overflow-auto" value="password">
+            <TabsContent class="flex flex-1 flex-col gap-4 p-4 overflow-auto" value="preview">
               <GithubMarkdown />
+            </TabsContent>
+            <TabsContent class="flex flex-1 flex-col gap-4 p-4 overflow-auto" value="developer">
+              <Developer />
             </TabsContent>
             <div class="flex justify-end bg-muted/50 py-2.5 px-3 w-full ">
               <TabsList>
-                <TabsTrigger value="account">Account</TabsTrigger>
-                <TabsTrigger value="password">Password</TabsTrigger>
+                <TabsTrigger value="designer">Designer</TabsTrigger>
+                <TabsTrigger value="preview">Preview</TabsTrigger>
+                <TabsTrigger value="developer">Developer</TabsTrigger>
                 <TabsIndicator />
               </TabsList>
             </div>
