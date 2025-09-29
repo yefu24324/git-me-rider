@@ -1,43 +1,19 @@
-import type { Heading, Image, Paragraph, Root, RootContent, Text } from "mdast";
+import { DragDropProvider, DragDropSensors, SortableProvider } from "@thisbeyond/solid-dnd";
+import type { Root, RootContent } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
-import { toMarkdown } from "mdast-util-to-markdown";
-import { For, Show } from "solid-js";
-import { Dynamic } from "solid-js/web";
+import { For } from "solid-js";
 
 import css from "../../assets/github-markdown.min.css?inline";
 import { ShadowRoot } from "../shadow-root/shadow-root";
 import { useWorkbenchContext } from "../workbench/workbench-context";
 import tailwindcss from "./ext.css?inline";
+import { active } from "./markdown-plugin";
+import type { HeaderRiderNode, ImageRiderNode, ParagraphRiderNode, RiderNode, TextRiderNode } from "./rider-nodes";
+import { RiderRender } from "./rider-register";
 
-export interface RiderMap {
-  header: HeaderRiderNode;
-  paragraph: ParagraphRiderNode;
-  image: ImageRiderNode;
-  text: TextRiderNode;
-}
-
-export type RiderNode = RiderMap[keyof RiderMap];
-
-export interface HeaderRiderNode {
-  type: "header";
-  node: Heading;
-  children: RiderNode[];
-}
-
-export interface ParagraphRiderNode {
-  type: "paragraph";
-  node: Paragraph;
-  children: RiderNode[];
-}
-
-export interface ImageRiderNode {
-  type: "image";
-  node: Image;
-}
-
-export interface TextRiderNode {
-  type: "text";
-  node: Text;
+/** 生成一个UUID */
+function uuid() {
+  return crypto.randomUUID();
 }
 
 export function toRider(tree: Root): RiderNode[] {
@@ -48,30 +24,38 @@ export function toRider(tree: Root): RiderNode[] {
 export function toRiderNode(node: RootContent): RiderNode | undefined {
   if (node.type === "heading") {
     const children = node.children.map((node) => toRiderNode(node)).filter((child) => !!child);
-    return {
+    const result: HeaderRiderNode = {
       children,
+      id: uuid(),
       node,
       type: "header",
-    } as HeaderRiderNode;
+    };
+    return result;
   }
   if (node.type === "paragraph") {
-    return {
+    const result: ParagraphRiderNode = {
       children: node.children.map((node) => toRiderNode(node)).filter((child) => !!child),
+      id: uuid(),
       node: node,
       type: "paragraph",
-    } as ParagraphRiderNode;
+    };
+    return result;
   }
   if (node.type === "image") {
-    return {
+    const result: ImageRiderNode = {
+      id: uuid(),
       node: node,
       type: "image",
-    } as ImageRiderNode;
+    };
+    return result;
   }
   if (node.type === "text") {
-    return {
+    const result: TextRiderNode = {
+      id: uuid(),
       node: node,
       type: "text",
-    } as TextRiderNode;
+    };
+    return result;
   }
 }
 
@@ -81,82 +65,24 @@ export function MarkdownDesigner() {
   console.log(tree);
   const riders = toRider(tree);
   console.log("riders", riders);
+  active();
 
   return (
     <ShadowRoot>
       <style>{css}</style>
       <style>{tailwindcss}</style>
-      <div class="markdown-body">
-        <For each={riders}>
-          {(item) => {
-            return <RiderRender rider={item} />;
-          }}
-        </For>
-      </div>
+      <DragDropProvider>
+        <DragDropSensors />
+        <div class="markdown-body">
+          <SortableProvider ids={riders.map((item) => item.id)}>
+            <For each={riders}>
+              {(item) => {
+                return <RiderRender rider={item} />;
+              }}
+            </For>
+          </SortableProvider>
+        </div>
+      </DragDropProvider>
     </ShadowRoot>
-  );
-}
-
-export function RiderRender(props: { rider: RiderNode }) {
-  if (props.rider.type === "header") {
-    return <MarkdownControlHeaderRender rider={props.rider} />;
-  }
-  if (props.rider.type === "paragraph") {
-    return <MarkdownControlParagraphRender rider={props.rider} />;
-  }
-  if (props.rider.type === "image") {
-    return <MarkdownControlImageRender rider={props.rider} />;
-  }
-  if (props.rider.type === "text") {
-    return <MarkdownControlTextRender rider={props.rider} />;
-  }
-  return <div>Unknown rider type: {props.rider.type}</div>;
-}
-
-export function MarkdownControlTextRender(props: { rider: TextRiderNode }) {
-  const text = toMarkdown(props.rider.node);
-  return (
-    <Show when={text.trim()}>
-      <div class="markdown-text">{text}</div>
-    </Show>
-  );
-}
-
-export function MarkdownControlHeaderRender(props: { rider: HeaderRiderNode }) {
-  const text = toMarkdown(props.rider.node);
-  return (
-    <div class="markdown-heading hover:border-blue-700 border border-transparent">
-      <Dynamic class="heading-element" component={"h" + props.rider.node.depth}>
-        <For each={props.rider.children}>
-          {(item) => {
-            return <RiderRender rider={item} />;
-          }}
-        </For>
-      </Dynamic>
-      <a aria-label="Permalink: H1" class="anchor" href="#h1" id="user-content-h1">
-        <span aria-hidden="true" class="octicon octicon-link"></span>
-      </a>
-    </div>
-  );
-}
-
-export function MarkdownControlParagraphRender(props: { rider: ParagraphRiderNode }) {
-  return (
-    <p>
-      <For each={props.rider.children}>
-        {(item) => {
-          return <RiderRender rider={item} />;
-        }}
-      </For>
-    </p>
-  );
-}
-
-export function MarkdownControlImageRender(props: { rider: ImageRiderNode }) {
-  console.log(props.rider.node);
-  return (
-    <a href={props.rider.node.url}>
-      <img src={props.rider.node.url} style="max-width: 100%;" />
-    </a>
   );
 }

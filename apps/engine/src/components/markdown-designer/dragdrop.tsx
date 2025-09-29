@@ -1,5 +1,11 @@
+import { cx } from "@gmr/components/utils/cva";
+import { Polymorphic, type PolymorphicProps } from "@kobalte/core/polymorphic";
 import { resolveFirst } from "@solid-primitives/refs";
-import { createEffect, type JSX } from "solid-js";
+import { createSortable } from "@thisbeyond/solid-dnd";
+import { createEffect, For, type JSX, splitProps, type ValidComponent } from "solid-js";
+
+import type { RiderNode } from "./rider-nodes";
+import { RiderRender } from "./rider-register";
 
 export function DragDrop(props: { container?: boolean; children: JSX.Element }) {
   const resolved = resolveFirst(() => props.children);
@@ -41,4 +47,43 @@ export function DragDrop(props: { container?: boolean; children: JSX.Element }) 
   document.createElement("div").addEventListener("dragover", (event: DragEvent) => {});
 
   return <>{resolved()}</>;
+}
+
+export interface RiderRootOptions {
+  rider: RiderNode;
+}
+
+export type RiderRootCommonProps<T extends HTMLElement = HTMLElement> = {
+  class: string;
+};
+
+export interface RiderRootRenderProps extends RiderRootCommonProps {}
+
+export type RiderRootProps<T extends ValidComponent | HTMLElement = HTMLElement> = RiderRootOptions & Partial<RiderRootCommonProps>;
+
+export function RiderRoot<T extends ValidComponent = "span">(props: PolymorphicProps<T, RiderRootProps<T>>) {
+  const [local, others] = splitProps(props, ["rider", "class"]);
+  const sortable = createSortable(local.rider.id);
+  return (
+    <Polymorphic<RiderRootRenderProps>
+      as="span"
+      class={cx(local.class, "hover:border-blue-700 border border-transparent")}
+      {...others}
+      ref={(element: HTMLElement) => {
+        sortable(element);
+      }}
+    >
+      {others.children}
+    </Polymorphic>
+  );
+}
+
+export function RiderList(props: { rider: RiderNode; children: RiderNode[] }) {
+  return (
+    <For each={props.children}>
+      {(item) => {
+        return <RiderRender rider={item} />;
+      }}
+    </For>
+  );
 }

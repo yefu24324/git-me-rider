@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build"
   },
   "dependencies": {
     "@babel/standalone": "^7.28.4",
@@ -33,6 +34,7 @@
     "tailwindcss": "~4.1.13",
     "typescript": "^5.8.2",
     "vite": "^7.1.5",
+    "vite-plugin-inspect": "^11.3.3",
     "vite-plugin-node-polyfills": "^0.24.0",
     "vite-plugin-solid": "^2.11.6",
     "vite-tsconfig-paths": "^5.1.4"
